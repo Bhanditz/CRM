@@ -1,0 +1,2 @@
+useDynLib(CRM)
+export(crm,crmsim,crmsiminc1,crmsiminc2)
