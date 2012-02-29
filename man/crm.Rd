@@ -66,7 +66,7 @@ res$MTD
 
 }
 
-\author{Qianxing Mo; \email{moq@mskcc.org}}
+\author{Qianxing Mo; \email{qmo@bcm.edu}}
 
 \references{
   John O'Quigley, Margaret Pepe,and Lloyd Fisher. (1990). Continual

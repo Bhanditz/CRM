@@ -109,7 +109,7 @@ crmsiminc2(target=0.2,prior=prior1,true=true1,rate=0.1,cycle=21,nsubject=24,nsim
            model=2,a0=1,b=3,jump=FALSE,start.dose=1,seed=777)
 }
 
-\author{Qianxing Mo; \email{moq@mskcc.org}}
+\author{Qianxing Mo; \email{qmo@bcm.edu}}
 
 \references{
   John O'Quigley, Margaret Pepe,and Lloyd Fisher. (1990). Continual

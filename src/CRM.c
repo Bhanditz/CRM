@@ -16,7 +16,7 @@ model 2 (one-parameter logistic)
 
 In both models, the parameter a is updated based on one-patients cohorts. 
 
-Author: Quincy Mo(moq@mskcc.org), Memorial Sloan-Kettering Cancer Center
+Author: Quincy Mo(qmo@bcm.edu), Baylor College of Medicine
 August, 2007
 
 Last update: 11/29/08 this code is used in CRM R packageversion 1.0
@@ -133,8 +133,8 @@ static void mulogisticintfn(double *x, int n, void *par){
 
 void checkErr(int istrue, char * mess) {
   if(istrue == 1) {
-    printf("Error: %s\n", mess);
-    exit(1);
+    Rprintf("Error: %s\n", mess);
+    error("Exit due to error\n"); 
   }
 }
 
@@ -146,7 +146,7 @@ model 2: p(dose)= exp(b+a*dose)/(1+exp(b+a*dose))
 /* index is next dose level */
 void CRM(int *model,double *tarToxiRate,double* priorProb,int *probSize, double *a0,double *b0,int * ptData,int *rowSize,int * index,double * amean) {
   MYPAR par;  
-  double *delta,*dose,*work,denom,numer,error,lowbound,epsabs,epsrel,small;
+  double *delta,*dose,*work,denom,numer,errmesg,lowbound,epsabs,epsrel,small;
   int **patientData,*iwork,i,j,smallID,neval,ier,limit,lenw,last,inf;
   lowbound = 0;
   epsabs = 0;
@@ -190,8 +190,8 @@ void CRM(int *model,double *tarToxiRate,double* priorProb,int *probSize, double 
       par.x[i] = dose[patientData[i][0] - 1]; /* dose[n-1] corresponds to dose level n */
       par.y[i] = patientData[i][1];
     } 
-    Rdqagi(hyperintfn,&par,&lowbound,&inf,&epsabs,&epsrel,&denom,&error,&neval,&ier,&limit,&lenw,&last,iwork,work);
-    Rdqagi(muhyperintfn,&par,&lowbound,&inf,&epsabs,&epsrel,&numer,&error,&neval,&ier,&limit,&lenw,&last,iwork,work);
+    Rdqagi(hyperintfn,&par,&lowbound,&inf,&epsabs,&epsrel,&denom,&errmesg,&neval,&ier,&limit,&lenw,&last,iwork,work);
+    Rdqagi(muhyperintfn,&par,&lowbound,&inf,&epsabs,&epsrel,&numer,&errmesg,&neval,&ier,&limit,&lenw,&last,iwork,work);
     *amean = numer/denom;
     for(j=0;j<*probSize;j++){
       delta[j] = fabs(*tarToxiRate - probtanh(*amean,dose[j])); 
@@ -211,8 +211,8 @@ void CRM(int *model,double *tarToxiRate,double* priorProb,int *probSize, double 
       par.x[i] = dose[patientData[i][0] - 1]; /*  dose[n-1] corresponds to dose level n */
       par.y[i] = patientData[i][1];
     }
-    Rdqagi(logisticintfn,&par,&lowbound,&inf,&epsabs,&epsrel,&denom,&error,&neval,&ier,&limit,&lenw,&last,iwork,work);
-    Rdqagi(mulogisticintfn,&par,&lowbound,&inf,&epsabs,&epsrel,&numer,&error,&neval,&ier,&limit,&lenw,&last,iwork,work);
+    Rdqagi(logisticintfn,&par,&lowbound,&inf,&epsabs,&epsrel,&denom,&errmesg,&neval,&ier,&limit,&lenw,&last,iwork,work);
+    Rdqagi(mulogisticintfn,&par,&lowbound,&inf,&epsabs,&epsrel,&numer,&errmesg,&neval,&ier,&limit,&lenw,&last,iwork,work);
     *amean = numer/denom;
     for(j=0;j<*probSize;j++){
       delta[j] = fabs(*tarToxiRate - problogistic(*amean, *b0, dose[j])); 
@@ -227,8 +227,8 @@ void CRM(int *model,double *tarToxiRate,double* priorProb,int *probSize, double 
     }
     *index = smallID + 1; /* next dose level = index + 1 */
   } else {
-    printf("Error: model must be 1 or 2 \n");
-    exit(1);
+    error("Error: model must be 1 or 2. \n");
+    /*    exit(1); */
   }
   free(delta);
   free(dose);

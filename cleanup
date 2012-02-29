@@ -2,3 +2,5 @@
 
 rm *~ R/*~ man/*~ demo/*~
 rm src/*.o src/*.so src/*~
+rm src-i386/*.o src-i386/*.so src-i386/*~
+rm src-x86_64/*.o src-x86_64/*.so src-x86_64/*~
