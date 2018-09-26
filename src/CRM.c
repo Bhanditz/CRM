@@ -16,7 +16,7 @@ model 2 (one-parameter logistic)
 
 In both models, the parameter a is updated based on one-patients cohorts. 
 
-Author: Quincy Mo(qmo@bcm.edu), Baylor College of Medicine
+Author: Quincy Mo(qianxing.mo@moffitt.org),Department of Biostatistics & Bioinformatics, H. Lee Moffitt Cancer Center
 August, 2007
 
 Last update: 11/29/08 this code is used in CRM R packageversion 1.0

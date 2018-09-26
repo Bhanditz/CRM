@@ -30,7 +30,7 @@ crm(target,prior,ptdata,model=1,a0=1,b=3)
     Default is 3.0.}
 }
 \seealso{
-  \code{\link{crmsim}}
+  \code{\link{crmsim}}, \code{\link{crmsiminc1}}, \code{\link{crmsiminc2}}
 }
 \value{
   A list with the following two objects:  
@@ -66,7 +66,7 @@ res$MTD
 
 }
 
-\author{Qianxing Mo; \email{qmo@bcm.edu}}
+\author{Qianxing Mo; \email{qianxing.mo@moffitt.org}}
 
 \references{
   John O'Quigley, Margaret Pepe,and Lloyd Fisher. (1990). Continual
